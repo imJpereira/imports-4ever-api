@@ -1,5 +1,7 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE tb_products (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(100) NOT NULL,
     description TEXT,
     url VARCHAR(255) NOT NULL,
@@ -9,6 +11,7 @@ CREATE TABLE tb_products (
     team UUID,
     category UUID,
     sport UUID,
+    highlight BOOLEAN DEFAULT false NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
 );
