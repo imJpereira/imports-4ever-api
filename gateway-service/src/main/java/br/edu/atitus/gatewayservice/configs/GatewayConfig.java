@@ -18,8 +18,8 @@ public class GatewayConfig {
                                 .addRequestHeader("Authorization", "Bearer token")
                                 .addRequestParameter("env","dev"))
                         .uri("http://httpbin.org:80"))
-                .route(p -> p.
-                        path("/currency/**")
+                .route(p -> p
+                        .path("/currency/**")
                         .uri("lb://currency-service"))
                 .route(p -> p
                         .path("/products/**")
@@ -37,8 +37,7 @@ public class GatewayConfig {
                         .path("/sports/**")
                         .uri("lb://sport-service"))
                 .build();
-
-
     }
+
 
 }
