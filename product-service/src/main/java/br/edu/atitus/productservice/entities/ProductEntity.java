@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 public class ProductEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false, length = 100)

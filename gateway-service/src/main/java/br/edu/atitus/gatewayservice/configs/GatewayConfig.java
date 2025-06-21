@@ -33,6 +33,9 @@ public class GatewayConfig {
                 .route(p -> p
                         .path("/teams/**")
                         .uri("lb://team-service"))
+                .route(p -> p
+                        .path("/sports/**")
+                        .uri("lb://sport-service"))
                 .build();
 
 
