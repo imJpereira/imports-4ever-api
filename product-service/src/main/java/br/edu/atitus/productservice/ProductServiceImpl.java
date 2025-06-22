@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import br.edu.atitus.productservice.DTOs.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductEntity update(UUID id, ProductEntity updatedProduct) {
+    public ProductEntity update(UUID id, ProductDTO updatedProduct) {
         ProductEntity existing = repository.findById(id)
             .orElseThrow(() -> new ProductNotFoundException(id));
 
@@ -57,5 +58,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(UUID id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<ProductEntity> getNameLike(String name) {
+        return repository.findByNameContaining(name);
     }
 }

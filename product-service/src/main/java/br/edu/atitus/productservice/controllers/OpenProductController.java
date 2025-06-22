@@ -1,5 +1,7 @@
 package br.edu.atitus.productservice.controllers;
 
+import br.edu.atitus.productservice.DTOs.ProductDTO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,19 +31,26 @@ public class OpenProductController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<ProductEntity> create(@RequestBody ProductEntity product) {
-        return ResponseEntity.ok(service.save(product));
+    @PostMapping("/create")
+    public ResponseEntity<ProductEntity> create(@RequestBody ProductDTO productDTO) {
+        ProductEntity newProduct = new ProductEntity();
+        BeanUtils.copyProperties(productDTO, newProduct);
+        return ResponseEntity.ok(service.save(newProduct));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductEntity> update(@PathVariable UUID id, @RequestBody ProductEntity product) {
-        return ResponseEntity.ok(service.update(id, product));
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ProductEntity> update(@PathVariable UUID id, @RequestBody ProductDTO productDTO) {
+        return ResponseEntity.ok(service.update(id, productDTO));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/like/{name}")
+    public List<ProductEntity> getNameLike(@PathVariable String name) {
+        return service.getNameLike(name);
     }
 }
