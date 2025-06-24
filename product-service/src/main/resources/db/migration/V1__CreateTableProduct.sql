@@ -9,6 +9,7 @@ CREATE TABLE tb_products (
     team UUID,
     category UUID,
     sport UUID,
+    highlight BOOLEAN DEFAULT false NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
 );

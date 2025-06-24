@@ -1,70 +1,56 @@
 package br.edu.atitus.productservice.controllers;
 
-import br.edu.atitus.productservice.clients.CurrencyClient;
-import br.edu.atitus.productservice.clients.CurrencyResponse;
-import br.edu.atitus.productservice.entities.ProductEntity;
-import br.edu.atitus.productservice.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.CacheManager;
+import br.edu.atitus.productservice.DTOs.ProductDTO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import br.edu.atitus.productservice.entities.ProductEntity;
+import br.edu.atitus.productservice.ProductService;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("/products")
 public class OpenProductController {
 
-    private final ProductRepository productRepository;
-    private final CurrencyClient currencyClient;
-    private final CacheManager cacheManager;
+    @Autowired
+    private ProductService service;
 
-    public OpenProductController(ProductRepository productRepository, CurrencyClient currencyClient, CacheManager cacheManager) {
-        this.productRepository = productRepository;
-        this.currencyClient = currencyClient;
-        this.cacheManager = cacheManager;
+    @GetMapping
+    public ResponseEntity<List<ProductEntity>> getAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
-    @Value("${server.port}")
-    private int serverPort;
-
-    @GetMapping("/{idProduct}/{targetCurrency}")
-    public ResponseEntity<ProductEntity> getById(@PathVariable Long idProduct, @PathVariable String targetCurrency) throws Exception {
-
-        targetCurrency = targetCurrency.toUpperCase();
-        String nameCache = "Product";
-        String keyCache = idProduct + "_" + targetCurrency;
-
-        ProductEntity product = cacheManager.getCache(nameCache).get(keyCache, ProductEntity.class);
-
-        if (product == null) {
-            product = productRepository.findById(idProduct)
-                    .orElseThrow(() -> new Exception("Product not found"));
-
-            product.setEnvironment("" + serverPort);
-
-            if (targetCurrency.equals(product.getCurrency())) {
-                product.setConvertedPrice(product.getPrice());
-            } else {
-                CurrencyResponse currency = currencyClient.getCurrency(product.getPrice(), product.getCurrency(), targetCurrency);
-
-                if (currency != null) {
-                    product.setEnvironment("service: product - port: " + product.getEnvironment() + " // " + currency.getEnvironment());
-                    product.setConvertedPrice(currency.getConvertedValue());
-                } else {
-                    product.setConvertedPrice(-1);
-                    product.setEnvironment("service: product - port: " + product.getEnvironment() + " // Currency unavailable");
-                }
-            }
-
-            cacheManager.getCache(nameCache).put(keyCache, product);
-        } else {
-            product.setEnvironment("service: product - port:" + serverPort + " (cache) // " + targetCurrency);
-        }
-
-        return ResponseEntity.ok(product);
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductEntity> getById(@PathVariable UUID id) {
+        return service.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<ProductEntity> create(@RequestBody ProductDTO productDTO) {
+        ProductEntity newProduct = new ProductEntity();
+        BeanUtils.copyProperties(productDTO, newProduct);
+        return ResponseEntity.ok(service.save(newProduct));
+    }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ProductEntity> update(@PathVariable UUID id, @RequestBody ProductDTO productDTO) {
+        return ResponseEntity.ok(service.update(id, productDTO));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/like/{name}")
+    public List<ProductEntity> getNameLike(@PathVariable String name) {
+        return service.getNameLike(name);
+    }
 }

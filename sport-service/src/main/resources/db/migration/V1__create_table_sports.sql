@@ -1,0 +1,5 @@
+CREATE TABLE sports_tb (
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP NOT NULL
+);
