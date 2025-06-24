@@ -29,6 +29,9 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+
+
+
     @Operation(description = "Cria novo pedido")
     @PostMapping("create")
     public ResponseEntity<OrderEntity> create(@RequestBody OrderDTO orderDTO)  throws Exception{
@@ -65,9 +68,8 @@ public class OrderController {
     }
 
     @Operation(description = "Pega todos os pedidos do usuário logado")
-    @GetMapping("")
-    public ResponseEntity<List<OrderEntity>> getAll() throws Exception {
-        var customerId = UUID.fromString("0f5fca58-06a3-4c13-8e6f-a1111105708a");
+    @GetMapping("/{customerId}")
+    public ResponseEntity<List<OrderEntity>> getAll(@PathVariable UUID customerId) throws Exception {
 
         //buscar no user service para ver se o usuário é admin
 
@@ -75,9 +77,9 @@ public class OrderController {
     }
 
     @Operation(description = "Pega um pedido")
-    @GetMapping("/{orderId}")
-    public ResponseEntity<OrderEntity> getById(@PathVariable UUID orderId) throws Exception {
-        return ResponseEntity.ok(orderService.findById(orderId));
+    @GetMapping("/{orderId}/{customerId}")
+    public ResponseEntity<OrderEntity> getById(@PathVariable UUID orderId, @PathVariable UUID customerId) throws Exception {
+        return ResponseEntity.ok(orderService.findById(orderId, customerId));
     }
 
 

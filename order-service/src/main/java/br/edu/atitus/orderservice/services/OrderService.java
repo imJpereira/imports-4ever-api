@@ -35,8 +35,8 @@ public class OrderService {
         return orderRepository.findAllByCustomerId(customerId);
     }
 
-    public OrderEntity findById(UUID orderId) throws Exception {
-        return orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("Order not found"));
-    }
+    public OrderEntity findById(UUID orderId, UUID customerId) throws Exception {
+        return orderRepository.findByCustomerIdAndOrderId(customerId, orderId);}
+
 
 }
