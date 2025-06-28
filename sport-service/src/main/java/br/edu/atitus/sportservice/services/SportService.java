@@ -36,7 +36,7 @@ public class SportService {
     }
 
     public List<SportEntity> getNameLike(String name) {
-        return sportRepository.findByNameContaining(name);
+        return sportRepository.findByNameContainingIgnoreCase(name);
     }
 
     public void deleteSport(UUID sportId) {
