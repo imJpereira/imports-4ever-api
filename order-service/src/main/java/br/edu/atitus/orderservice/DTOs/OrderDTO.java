@@ -5,14 +5,14 @@ import java.util.UUID;
 
 public class OrderDTO {
 
-    private UUID customerId;
+    private Long customerId;
     private List<ItemOrderDTO> orderItems;
 
-    public UUID getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(UUID customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 

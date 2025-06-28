@@ -25,7 +25,7 @@ public class OrderEntity {
     private BigInteger orderNumber;
 
     @Column(name = "customer_id", nullable = false)
-    private UUID customerId;
+    private Long customerId;
 
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
@@ -49,13 +49,6 @@ public class OrderEntity {
         this.orderNumber = orderNumber;
     }
 
-    public UUID getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(UUID customerId) {
-        this.customerId = customerId;
-    }
 
     public LocalDateTime getOrderDate() {
         return orderDate;
@@ -80,4 +73,13 @@ public class OrderEntity {
     public void setOrder_items(List<ItemOrderEntity> order_items) {
         this.order_items = order_items;
     }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
 }
+

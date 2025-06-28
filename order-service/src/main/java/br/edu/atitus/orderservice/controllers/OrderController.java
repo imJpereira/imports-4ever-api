@@ -31,13 +31,18 @@ public class OrderController {
 
     @Operation(description = "Cria novo pedido")
     @PostMapping("create")
-    public ResponseEntity<OrderEntity> create(@RequestBody OrderDTO orderDTO)  throws Exception{
+    public ResponseEntity<OrderEntity> create(
+            @RequestBody OrderDTO orderDTO,
+            @RequestHeader("X-User-Id") Long userId,
+            @RequestHeader("X-User-Email") String userEmail,
+            @RequestHeader("X-User-Type") Long userType
+    ) throws Exception {
 
         OrderEntity newOrder = new OrderEntity();
         BeanUtils.copyProperties(orderDTO, newOrder);
 
+        newOrder.setCustomerId(userId);
         orderService.create(newOrder);
-
 
         List<ItemOrderEntity> newOrderItems = new ArrayList<>();
         BigDecimal total = BigDecimal.ZERO;
@@ -66,12 +71,17 @@ public class OrderController {
 
     @Operation(description = "Pega todos os pedidos do usuário logado")
     @GetMapping("")
-    public ResponseEntity<List<OrderEntity>> getAll() throws Exception {
-        var customerId = UUID.fromString("0f5fca58-06a3-4c13-8e6f-a1111105708a");
+    public ResponseEntity<List<OrderEntity>> getAll(
+            @RequestHeader("X-User-Id") Long userId,
+            @RequestHeader("X-User-Email") String userEmail,
+            @RequestHeader("X-User-Type") Long userType
+    ) throws Exception {
 
-        //buscar no user service para ver se o usuário é admin
+        if (userType != 0 ) {
+            return ResponseEntity.ok(orderService.findAll(userId));
+        }
 
-        return ResponseEntity.ok(orderService.findAll(customerId));
+        return ResponseEntity.ok(orderService.findAll());
     }
 
     @Operation(description = "Pega um pedido")
