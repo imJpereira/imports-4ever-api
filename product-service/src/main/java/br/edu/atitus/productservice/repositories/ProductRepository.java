@@ -18,4 +18,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
     List<ProductEntity> findAllBySport(UUID sport);
 
     List<ProductEntity> findByHighlight(Boolean highlight);
+
+    List<ProductEntity> findByNameContainingIgnoreCase(String name);
 }
