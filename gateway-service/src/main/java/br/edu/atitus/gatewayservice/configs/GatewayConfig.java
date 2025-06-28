@@ -31,13 +31,22 @@ public class    GatewayConfig {
                         .path("/categories/**")
                         .uri("lb://category-service"))
                 .route(p -> p
+                        .path("/ws/categories/**")
+                        .uri("lb://category-service"))
+                .route(p -> p
                         .path("/orders/**")
                         .uri("lb://order-service"))
                 .route(p -> p
                         .path("/teams/**")
                         .uri("lb://team-service"))
                 .route(p -> p
+                        .path("/ws/teams/**")
+                        .uri("lb://team-service"))
+                .route(p -> p
                         .path("/sports/**")
+                        .uri("lb://sport-service"))
+                .route(p -> p
+                        .path("/ws/sports/**")
                         .uri("lb://sport-service"))
                 .route(p -> p
                         .path("/auth/**")

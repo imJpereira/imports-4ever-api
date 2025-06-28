@@ -30,7 +30,7 @@ public class JwtUtil {
                 //.subject(email) // Define o "sub" com o email do usuário
         		.claims(claims)
                 .issuedAt(new Date()) // Data de emissão
-                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) // Expiração
+                    .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) // Expiração
                 .signWith(getSigningKey()) // Assina com a chave secreta
                 .compact(); // Gera o token JWT
     }

@@ -57,7 +57,12 @@ public class OpenProductController {
 
     @GetMapping("/sport/{sportId}")
     public ResponseEntity<List<ProductEntity>> findBySport(@PathVariable UUID sportId) {
-        return ResponseEntity.ok(service.findByCategoryId(sportId));
+        return ResponseEntity.ok(service.findBySportId(sportId));
+    }
+
+    @GetMapping("/highlight")
+    public ResponseEntity<List<ProductEntity>> findHighlight() throws Exception {
+        return ResponseEntity.ok(service.findHighlightProducts());
     }
 
     @PostMapping("/create")

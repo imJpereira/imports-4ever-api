@@ -81,4 +81,9 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductEntity> findBySportId(UUID sportId) {
         return repository.findAllBySport(sportId);
     }
+
+    @Override
+    public List<ProductEntity> findHighlightProducts() {
+        return repository.findByHighlight(true);
+    }
 }

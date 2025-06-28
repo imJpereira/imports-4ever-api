@@ -25,4 +25,6 @@ public interface ProductService {
     List<ProductEntity> findByTeamId(UUID teamId);
 
     List<ProductEntity> findBySportId(UUID sportId);
+
+    List<ProductEntity> findHighlightProducts();
 }

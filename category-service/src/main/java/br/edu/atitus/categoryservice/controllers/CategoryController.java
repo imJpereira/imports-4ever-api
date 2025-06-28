@@ -43,7 +43,6 @@ public class CategoryController {
     @PostMapping("/create")
     public ResponseEntity<CategoryEntity> create(
             @RequestBody CategoryDTO dto,
-            @PathVariable UUID teamId,
             @RequestHeader("X-User-Id") Long userId,
             @RequestHeader("X-User-Email") String userEmail,
             @RequestHeader("X-User-Type") Long userType

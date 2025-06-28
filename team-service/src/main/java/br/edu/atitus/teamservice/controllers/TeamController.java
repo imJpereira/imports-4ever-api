@@ -41,7 +41,7 @@ public class TeamController {
         return ResponseEntity.ok(teamService.getTeams());
     }
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResponseEntity<TeamEntity> createTeam(
             @RequestBody TeamDTO teamDTO,
             @RequestHeader("X-User-Id") Long userId,
