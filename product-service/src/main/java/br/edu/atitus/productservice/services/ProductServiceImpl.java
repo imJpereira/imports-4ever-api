@@ -1,4 +1,4 @@
-package br.edu.atitus.productservice;
+package br.edu.atitus.productservice.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import br.edu.atitus.productservice.DTOs.ProductDTO;
+import br.edu.atitus.productservice.exceptions.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,11 @@ import br.edu.atitus.productservice.repositories.ProductRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+    private final ProductRepository repository;
 
-    @Autowired
-    private ProductRepository repository;
+    public ProductServiceImpl(ProductRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<ProductEntity> findAll() {
@@ -54,7 +57,6 @@ public class ProductServiceImpl implements ProductService {
         return repository.save(existing);
     }
 
-
     @Override
     public void delete(UUID id) {
         repository.deleteById(id);
@@ -62,6 +64,26 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductEntity> getNameLike(String name) {
-        return repository.findByNameContainingIgnoreCase(name);
+        return repository.findByNameContainingIgnoreCase((name));
+    }
+
+    @Override
+    public List<ProductEntity> findByCategoryId(UUID categoryId) {
+        return repository.findAllByCategory(categoryId);
+    }
+
+    @Override
+    public List<ProductEntity> findByTeamId(UUID teamId) {
+        return repository.findAllByTeam(teamId);
+    }
+
+    @Override
+    public List<ProductEntity> findBySportId(UUID sportId) {
+        return repository.findAllBySport(sportId);
+    }
+
+    @Override
+    public List<ProductEntity> findHighlightProducts() {
+        return repository.findByHighlight(true);
     }
 }

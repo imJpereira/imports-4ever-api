@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class GatewayConfig {
+public class    GatewayConfig {
 
     @Bean
     RouteLocator getRoutes(RouteLocatorBuilder builder) {
@@ -25,7 +25,13 @@ public class GatewayConfig {
                         .path("/products/**")
                         .uri("lb://product-service"))
                 .route(p -> p
+                        .path("/ws/products/**")
+                        .uri("lb://product-service"))
+                .route(p -> p
                         .path("/categories/**")
+                        .uri("lb://category-service"))
+                .route(p -> p
+                        .path("/ws/categories/**")
                         .uri("lb://category-service"))
                 .route(p -> p
                         .path("/orders/**")
@@ -34,8 +40,17 @@ public class GatewayConfig {
                         .path("/teams/**")
                         .uri("lb://team-service"))
                 .route(p -> p
+                        .path("/ws/teams/**")
+                        .uri("lb://team-service"))
+                .route(p -> p
                         .path("/sports/**")
                         .uri("lb://sport-service"))
+                .route(p -> p
+                        .path("/ws/sports/**")
+                        .uri("lb://sport-service"))
+                .route(p -> p
+                        .path("/auth/**")
+                        .uri("lb://auth-service"))
                 .build();
     }
 

@@ -31,12 +31,16 @@ public class OrderService {
         return orderEntity;
     }
 
-    public List<OrderEntity> findAll(UUID customerId) throws Exception {
+    public List<OrderEntity> findAll(Long customerId) throws Exception {
         return orderRepository.findAllByCustomerId(customerId);
     }
 
-    public OrderEntity findById(UUID orderId, UUID customerId) throws Exception {
-        return orderRepository.findByIdAndCustomerId(orderId,customerId);}
+    public List<OrderEntity> findAll() throws Exception {
+        return orderRepository.findAll();
+    }
 
+    public OrderEntity findById(UUID orderId) throws Exception {
+        return orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("Order not found"));
+    }
 
 }
