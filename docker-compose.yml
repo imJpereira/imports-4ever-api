@@ -54,6 +54,7 @@ services:
       - "8003:8003"
     depends_on:
       - discovery-service
+      - db-order
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db-order:5432/db_order
       SPRING_DATASOURCE_USERNAME: postgres
@@ -169,6 +170,36 @@ services:
       - spring-net
 
   # -------------------------------
+
+  db-user:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: db_user
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - spring-net
+
+  auth-service:
+    image: auth-service:latest
+    build:
+      context: ./auth-service
+    ports:
+      - "8010:8010"
+    depends_on:
+      - discovery-service
+      - db-user
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-user:5432/db_user
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discovery-service:8761/eureka
+    networks:
+      - spring-net
+
+  # -------------------------------
+
+
   gateway-service:
     image: gateway-service:latest
     build:
