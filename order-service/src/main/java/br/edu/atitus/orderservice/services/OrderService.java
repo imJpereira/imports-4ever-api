@@ -36,7 +36,7 @@ public class OrderService {
     }
 
     public OrderEntity findById(UUID orderId, UUID customerId) throws Exception {
-        return orderRepository.findByCustomerIdAndOrderId(customerId, orderId);}
+        return orderRepository.findByIdAndCustomerId(orderId,customerId);}
 
 
 }

@@ -12,4 +12,6 @@ public interface TeamRepository extends JpaRepository<TeamEntity, UUID> {
 
 
     List<TeamEntity> findByNameContaining(String name);
+
+    List<TeamEntity> findByNameContainingIgnoreCase(String name);
 }

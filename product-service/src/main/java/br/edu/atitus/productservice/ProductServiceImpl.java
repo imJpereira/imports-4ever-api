@@ -62,6 +62,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductEntity> getNameLike(String name) {
-        return repository.findByNameContaining(name);
+        return repository.findByNameContainingIgnoreCase(name);
     }
 }

@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface SportRepository extends JpaRepository<SportEntity, UUID> {
 
     List<SportEntity> findByNameContaining(String name);
+
+    List<SportEntity> findByNameContainingIgnoreCase(String name);
 }

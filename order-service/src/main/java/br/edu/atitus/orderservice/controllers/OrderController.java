@@ -77,8 +77,8 @@ public class OrderController {
     }
 
     @Operation(description = "Pega um pedido")
-    @GetMapping("/{orderId}/{customerId}")
-    public ResponseEntity<OrderEntity> getById(@PathVariable UUID orderId, @PathVariable UUID customerId) throws Exception {
+    @GetMapping("/{customerId}/{orderId}")
+    public ResponseEntity<OrderEntity> getById(@PathVariable UUID customerId,@PathVariable UUID orderId) throws Exception {
         return ResponseEntity.ok(orderService.findById(orderId, customerId));
     }
 

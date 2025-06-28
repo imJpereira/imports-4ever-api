@@ -16,12 +16,22 @@ public class SportEntity {
     @Column(name = "name", unique = true, nullable = false, length = 100)
     private String name;
 
+    @Column(name = "url", nullable = false, length = 255)
+    private String url;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-
     public UUID getId() {
         return id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public void setId(UUID id) {
