@@ -14,13 +14,14 @@ public class ProductDTO {
     private String name;
     private String description;
     private String url;
-    private BigDecimal value;
-    private BigDecimal discountValue;
+    private double value;
+    private double discountValue;
     private String status;
     private UUID team;
     private UUID category;
     private UUID sport;
     private Boolean highlight;
+    private String currency;
 
     public String getName() {
         return name;
@@ -46,19 +47,19 @@ public class ProductDTO {
         this.url = url;
     }
 
-    public BigDecimal getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(BigDecimal value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
-    public BigDecimal getDiscountValue() {
+    public double getDiscountValue() {
         return discountValue;
     }
 
-    public void setDiscountValue(BigDecimal discountValue) {
+    public void setDiscountValue(double discountValue) {
         this.discountValue = discountValue;
     }
 
@@ -100,5 +101,13 @@ public class ProductDTO {
 
     public void setHighlight(Boolean highlight) {
         this.highlight = highlight;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }
