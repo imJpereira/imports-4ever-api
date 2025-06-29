@@ -1,10 +1,14 @@
 package br.edu.atitus.productservice.controllers;
 
 import br.edu.atitus.productservice.DTOs.ProductDTO;
+import br.edu.atitus.productservice.clients.CurrencyClient;
+import br.edu.atitus.productservice.clients.CurrencyResponse;
 import br.edu.atitus.productservice.exceptions.UnauthorizedException;
 import feign.Response;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +37,9 @@ public class OpenProductController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductEntity> getById(@PathVariable UUID id) {
-        return service.findById(id)
+    @GetMapping("/{id}/{targetCurrency}")
+    public ResponseEntity<ProductEntity> getById(@PathVariable UUID id, @PathVariable String targetCurrency) {
+        return service.findById(id,targetCurrency)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

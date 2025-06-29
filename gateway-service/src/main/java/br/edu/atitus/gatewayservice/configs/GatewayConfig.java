@@ -49,6 +49,9 @@ public class    GatewayConfig {
                         .path("/ws/sports/**")
                         .uri("lb://sport-service"))
                 .route(p -> p
+                        .path("/user/**")
+                        .uri("lb://auth-service"))
+                .route(p -> p
                         .path("/auth/**")
                         .uri("lb://auth-service"))
                 .build();

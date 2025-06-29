@@ -23,11 +23,11 @@ public class ProductEntity {
     @Column(nullable = false, length = 255)
     private String url;
 
-    @Column(nullable = false, precision = 14, scale = 2)
-    private BigDecimal value;
+    @Column(nullable = false)
+    private double value;
 
-    @Column(name = "discount_value", precision = 14, scale = 2)
-    private BigDecimal discountValue;
+    @Column(name = "discount_value")
+    private double discountValue;
 
     @Column(nullable = false, length = 10)
     private String status; // 'ATIVO' ou 'INATIVO'
@@ -47,11 +47,20 @@ public class ProductEntity {
     @Column(nullable = false)
     private Boolean highlight = false;
 
+    @Column(name = "currency")
+    private String currency;
+
+    @Transient
+    double convertedPrice;
+
+
     // Getters e setters
+
 
     public UUID getId() {
         return id;
     }
+
     public void setId(UUID id) {
         this.id = id;
     }
@@ -59,6 +68,7 @@ public class ProductEntity {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -66,6 +76,7 @@ public class ProductEntity {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -73,27 +84,31 @@ public class ProductEntity {
     public String getUrl() {
         return url;
     }
+
     public void setUrl(String url) {
         this.url = url;
     }
 
-    public BigDecimal getValue() {
+    public double getValue() {
         return value;
     }
-    public void setValue(BigDecimal value) {
+
+    public void setValue(double value) {
         this.value = value;
     }
 
-    public BigDecimal getDiscountValue() {
+    public double getDiscountValue() {
         return discountValue;
     }
-    public void setDiscountValue(BigDecimal discountValue) {
+
+    public void setDiscountValue(double discountValue) {
         this.discountValue = discountValue;
     }
 
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -101,6 +116,7 @@ public class ProductEntity {
     public UUID getTeam() {
         return team;
     }
+
     public void setTeam(UUID team) {
         this.team = team;
     }
@@ -108,6 +124,7 @@ public class ProductEntity {
     public UUID getCategory() {
         return category;
     }
+
     public void setCategory(UUID category) {
         this.category = category;
     }
@@ -115,6 +132,7 @@ public class ProductEntity {
     public UUID getSport() {
         return sport;
     }
+
     public void setSport(UUID sport) {
         this.sport = sport;
     }
@@ -122,6 +140,7 @@ public class ProductEntity {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
@@ -129,6 +148,7 @@ public class ProductEntity {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -136,7 +156,24 @@ public class ProductEntity {
     public Boolean getHighlight() {
         return highlight;
     }
+
     public void setHighlight(Boolean highlight) {
         this.highlight = highlight;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public double getConvertedPrice() {
+        return convertedPrice;
+    }
+
+    public void setConvertedPrice(double convertedPrice) {
+        this.convertedPrice = convertedPrice;
     }
 }

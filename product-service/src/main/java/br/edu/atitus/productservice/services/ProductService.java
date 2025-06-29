@@ -10,7 +10,7 @@ public interface ProductService {
 
     List<ProductEntity> findAll();
 
-    Optional<ProductEntity> findById(UUID id);
+    Optional<ProductEntity> findById(UUID id, String targetCurrency);
 
     ProductEntity save(ProductEntity product);
 

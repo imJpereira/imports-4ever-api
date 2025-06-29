@@ -11,5 +11,6 @@ CREATE TABLE tb_products (
     sport UUID,
     highlight BOOLEAN DEFAULT false NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
-    updated_at TIMESTAMP DEFAULT now()
+    updated_at TIMESTAMP DEFAULT now(),
+    currency varchar(3)
 );

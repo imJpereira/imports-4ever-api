@@ -54,7 +54,6 @@ public class AuthController {
 		UserEntity user = (UserEntity) service.loadUserByUsername(signin.email());
 		SigninResponseDTO response = new SigninResponseDTO(user, JwtUtil.generateToken(user.getEmail(), user.getId(), user.getType()));
 		return ResponseEntity.ok(response);
-
 	}
 
 	@ExceptionHandler(Exception.class)
