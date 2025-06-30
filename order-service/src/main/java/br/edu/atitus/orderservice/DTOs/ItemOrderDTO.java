@@ -1,5 +1,7 @@
 package br.edu.atitus.orderservice.DTOs;
 
+import jakarta.persistence.Transient;
+
 import java.util.UUID;
 
 public class ItemOrderDTO {

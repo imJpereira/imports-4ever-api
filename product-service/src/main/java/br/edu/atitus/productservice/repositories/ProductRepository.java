@@ -10,4 +10,14 @@ import java.util.UUID;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
     List<ProductEntity> findByNameContaining(String name);
+
+    List<ProductEntity> findAllByCategory(UUID category);
+
+    List<ProductEntity> findAllByTeam(UUID team);
+
+    List<ProductEntity> findAllBySport(UUID sport);
+
+    List<ProductEntity> findByHighlight(Boolean highlight);
+
+    List<ProductEntity> findByNameContainingIgnoreCase(String name);
 }

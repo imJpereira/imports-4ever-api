@@ -21,17 +21,14 @@ public class OrderEntity {
     @OneToMany(mappedBy = "order")
     private List<ItemOrderEntity> order_items = new ArrayList<>();
 
-    @Column(name = "order_number", unique = true, nullable = false)
-    private BigInteger orderNumber;
-
     @Column(name = "customer_id", nullable = false)
-    private UUID customerId;
+    private Long customerId;
 
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
 
     @Column(name = "total", nullable = false)
-    private BigDecimal total;
+    private double total;
 
     public UUID getId() {
         return id;
@@ -41,19 +38,19 @@ public class OrderEntity {
         this.id = id;
     }
 
-    public BigInteger getOrderNumber() {
-        return orderNumber;
+    public List<ItemOrderEntity> getOrder_items() {
+        return order_items;
     }
 
-    public void setOrderNumber(BigInteger orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrder_items(List<ItemOrderEntity> order_items) {
+        this.order_items = order_items;
     }
 
-    public UUID getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(UUID customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
@@ -65,19 +62,12 @@ public class OrderEntity {
         this.orderDate = orderDate;
     }
 
-    public BigDecimal getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(double total) {
         this.total = total;
     }
-
-    public List<ItemOrderEntity> getOrder_items() {
-        return order_items;
-    }
-
-    public void setOrder_items(List<ItemOrderEntity> order_items) {
-        this.order_items = order_items;
-    }
 }
+

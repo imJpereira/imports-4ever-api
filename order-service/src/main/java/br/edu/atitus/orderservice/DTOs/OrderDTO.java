@@ -5,16 +5,7 @@ import java.util.UUID;
 
 public class OrderDTO {
 
-    private UUID customerId;
     private List<ItemOrderDTO> orderItems;
-
-    public UUID getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(UUID customerId) {
-        this.customerId = customerId;
-    }
 
     public List<ItemOrderDTO> getOrderItems() {
         return orderItems;

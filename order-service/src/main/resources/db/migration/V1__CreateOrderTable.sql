@@ -1,7 +1,6 @@
 CREATE TABLE order_tb (
     id UUID PRIMARY KEY,
-    order_number SERIAL UNIQUE,
-    customer_id UUID NOT NULL,
+    customer_id INTEGER NOT NULL,
     total NUMERIC(14, 2) NOT NULL DEFAULT 0,
     order_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );

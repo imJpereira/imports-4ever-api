@@ -30,7 +30,7 @@ public class TeamService {
     }
 
     public List<TeamEntity> getNameLike(String name) throws Exception {
-        return teamRepository.findByNameContaining(name);
+        return teamRepository.findByNameContainingIgnoreCase(name);
     }
 
     public TeamEntity getTeamById(UUID teamId) throws Exception {

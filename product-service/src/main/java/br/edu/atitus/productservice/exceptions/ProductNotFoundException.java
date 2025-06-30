@@ -1,4 +1,4 @@
-package br.edu.atitus.productservice;
+package br.edu.atitus.productservice.exceptions;
 
 import java.util.UUID;
 
