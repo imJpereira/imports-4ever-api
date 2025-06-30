@@ -54,6 +54,8 @@ services:
       - "8003:8003"
     depends_on:
       - discovery-service
+      - currency-service
+      - product-service
       - db-order
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db-order:5432/db_order

@@ -22,8 +22,7 @@ public class OrderService {
     public OrderEntity create(OrderEntity orderEntity) throws Exception {
         //validaçoẽs
 
-        orderEntity.setTotal(BigDecimal.ZERO);
-        orderEntity.setOrderNumber(BigInteger.ONE);
+        orderEntity.setTotal(0);
         orderEntity.setOrderDate(LocalDateTime.now());
 
         orderRepository.save(orderEntity);
@@ -42,5 +41,15 @@ public class OrderService {
     public OrderEntity findById(UUID orderId) throws Exception {
         return orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("Order not found"));
     }
+
+    public OrderEntity update(OrderEntity orderEntity) throws Exception {
+        return orderRepository.save(orderEntity);
+    }
+
+    public void delete(UUID orderId) throws Exception {
+        orderRepository.deleteById(orderId);
+    }
+
+
 
 }
