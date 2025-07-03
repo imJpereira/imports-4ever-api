@@ -82,7 +82,7 @@ public class OrderController {
     }
 
     @Operation(description = "Pega todos os pedidos do usuário logado")
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<List<OrderEntity>> getAll(
             @RequestHeader("X-User-Id") Long userId,
             @RequestHeader("X-User-Email") String userEmail,
